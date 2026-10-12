@@ -1,0 +1,2060 @@
+{
+  "schema_version": "0.1.0",
+  "generated_at": 1786084043.7792604,
+  "root_dir": "/home/claude/flowtrace",
+  "file_count": 8,
+  "class_count": 2,
+  "function_count": 43,
+  "files": [
+    {
+      "path": "examples/demo.py",
+      "module_name": "examples.demo",
+      "line_count": 46,
+      "docstring": "Sample application traced by flowtrace. Run with:\nflowtrace run examples/demo.py",
+      "imports": [],
+      "classes": [],
+      "functions": [
+        {
+          "qualified_name": "examples.demo.fetch_user",
+          "name": "fetch_user",
+          "line": 6,
+          "end_line": 8,
+          "args": [
+            "user_id"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": null
+        },
+        {
+          "qualified_name": "examples.demo.enrich_user",
+          "name": "enrich_user",
+          "line": 11,
+          "end_line": 15,
+          "args": [
+            "user"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": null
+        },
+        {
+          "qualified_name": "examples.demo.save_user",
+          "name": "save_user",
+          "line": 18,
+          "end_line": 20,
+          "args": [
+            "user"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": null
+        },
+        {
+          "qualified_name": "examples.demo.process_signup",
+          "name": "process_signup",
+          "line": 23,
+          "end_line": 27,
+          "args": [
+            "user_id"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": null
+        },
+        {
+          "qualified_name": "examples.demo.risky_divide",
+          "name": "risky_divide",
+          "line": 30,
+          "end_line": 34,
+          "args": [
+            "a",
+            "b"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": null
+        },
+        {
+          "qualified_name": "examples.demo.main",
+          "name": "main",
+          "line": 37,
+          "end_line": 42,
+          "args": [],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "flowtrace/__init__.py",
+      "module_name": "flowtrace",
+      "line_count": 14,
+      "docstring": "flowtrace - zero-config execution tracer (Tracer Core / Language Agent module).\n\nHooks into Python's runtime via sys.settrace() to capture function call/return\nevents, argument and return-value payloads, and mutable-argument state diffs,\nthen emits a normalised JSON execution graph consumable by the Data Engine\nand Frontend UI layers described in the FlowTrace spec.",
+      "imports": [
+        {
+          "module": "tracer",
+          "names": [
+            "Tracer"
+          ],
+          "kind": "from",
+          "alias": null,
+          "line": 9,
+          "level": 1,
+          "resolved_paths": [
+            "flowtrace/tracer.py"
+          ],
+          "category": null
+        },
+        {
+          "module": "classifier",
+          "names": [
+            "classify_module"
+          ],
+          "kind": "from",
+          "alias": null,
+          "line": 10,
+          "level": 1,
+          "resolved_paths": [
+            "flowtrace/classifier.py"
+          ],
+          "category": null
+        },
+        {
+          "module": "serializer",
+          "names": [
+            "safe_serialize",
+            "diff_states"
+          ],
+          "kind": "from",
+          "alias": null,
+          "line": 11,
+          "level": 1,
+          "resolved_paths": [
+            "flowtrace/serializer.py"
+          ],
+          "category": null
+        }
+      ],
+      "classes": [],
+      "functions": [],
+      "error": null
+    },
+    {
+      "path": "flowtrace/classifier.py",
+      "module_name": "flowtrace.classifier",
+      "line_count": 43,
+      "docstring": "Auto-classifies modules into architectural categories based on import\nnamespace, per the Data Processing Engine spec (e.g. [Network], [Database],\n[UI], [Logic]).",
+      "imports": [],
+      "classes": [],
+      "functions": [
+        {
+          "qualified_name": "flowtrace.classifier.classify_module",
+          "name": "classify_module",
+          "line": 31,
+          "end_line": 43,
+          "args": [
+            "module_name"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": "Return an architectural category string for a given module name."
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "flowtrace/cli.py",
+      "module_name": "flowtrace.cli",
+      "line_count": 94,
+      "docstring": "Zero-config CLI: `flowtrace run main.py` - no source modification required.",
+      "imports": [
+        {
+          "module": "argparse",
+          "names": [],
+          "kind": "import",
+          "alias": null,
+          "line": 3,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Logic"
+        },
+        {
+          "module": "json",
+          "names": [],
+          "kind": "import",
+          "alias": null,
+          "line": 4,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Stdlib"
+        },
+        {
+          "module": "runpy",
+          "names": [],
+          "kind": "import",
+          "alias": null,
+          "line": 5,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Logic"
+        },
+        {
+          "module": "sys",
+          "names": [],
+          "kind": "import",
+          "alias": null,
+          "line": 6,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Stdlib"
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "kind": "from",
+          "alias": null,
+          "line": 7,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Stdlib"
+        },
+        {
+          "module": "tracer",
+          "names": [
+            "Tracer"
+          ],
+          "kind": "from",
+          "alias": null,
+          "line": 9,
+          "level": 1,
+          "resolved_paths": [
+            "flowtrace/tracer.py"
+          ],
+          "category": null
+        },
+        {
+          "module": "indexer",
+          "names": [
+            "build_index"
+          ],
+          "kind": "from",
+          "alias": null,
+          "line": 10,
+          "level": 1,
+          "resolved_paths": [
+            "flowtrace/indexer.py"
+          ],
+          "category": null
+        }
+      ],
+      "classes": [],
+      "functions": [
+        {
+          "qualified_name": "flowtrace.cli.build_parser",
+          "name": "build_parser",
+          "line": 13,
+          "end_line": 34,
+          "args": [],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.cli.main",
+          "name": "main",
+          "line": 37,
+          "end_line": 90,
+          "args": [
+            "argv"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "flowtrace/indexer.py",
+      "module_name": "flowtrace.indexer",
+      "line_count": 273,
+      "docstring": "Static Analyzer (Phase 2 / \"Layer 1-3\" of the project-understanding\nroadmap): walks a project directory and, without executing any code,\nextracts its folder structure, import graph, class hierarchy, and function\ninventory via Python's `ast` module.\n\nThis is deliberately independent of the runtime Tracer Core - it produces\na persistent index that a trace's `call_id`/`module`/`file`/`line` fields\ncan later be joined against (e.g. \"show me the docstring and callers for\nwhatever function call_id 42 in this trace actually is\").",
+      "imports": [
+        {
+          "module": "ast",
+          "names": [],
+          "kind": "import",
+          "alias": null,
+          "line": 12,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Logic"
+        },
+        {
+          "module": "os",
+          "names": [],
+          "kind": "import",
+          "alias": null,
+          "line": 13,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Stdlib"
+        },
+        {
+          "module": "time",
+          "names": [],
+          "kind": "import",
+          "alias": null,
+          "line": 14,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Stdlib"
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "kind": "from",
+          "alias": null,
+          "line": 15,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Stdlib"
+        },
+        {
+          "module": "classifier",
+          "names": [
+            "classify_module"
+          ],
+          "kind": "from",
+          "alias": null,
+          "line": 17,
+          "level": 1,
+          "resolved_paths": [
+            "flowtrace/classifier.py"
+          ],
+          "category": null
+        }
+      ],
+      "classes": [
+        {
+          "qualified_name": "flowtrace.indexer._FileVisitor",
+          "name": "_FileVisitor",
+          "line": 103,
+          "end_line": 177,
+          "bases": [
+            "ast.NodeVisitor"
+          ],
+          "decorators": [],
+          "docstring": "Single-module AST walk. Tracks a scope stack so nested functions/\nclasses get correctly qualified names, and methods are distinguished\nfrom free functions.",
+          "methods": [
+            "__init__",
+            "_qualify",
+            "_unparse",
+            "visit_Import",
+            "visit_ImportFrom",
+            "visit_ClassDef",
+            "visit_FunctionDef",
+            "visit_AsyncFunctionDef",
+            "_visit_function"
+          ]
+        }
+      ],
+      "functions": [
+        {
+          "qualified_name": "flowtrace.indexer._should_ignore_dir",
+          "name": "_should_ignore_dir",
+          "line": 26,
+          "end_line": 27,
+          "args": [
+            "name"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.indexer.discover_python_files",
+          "name": "discover_python_files",
+          "line": 30,
+          "end_line": 40,
+          "args": [
+            "root_dir",
+            "extra_ignore"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": "Walk root_dir, skipping venvs/vendor/VCS dirs, returning sorted .py paths."
+        },
+        {
+          "qualified_name": "flowtrace.indexer._module_name_for",
+          "name": "_module_name_for",
+          "line": 43,
+          "end_line": 49,
+          "args": [
+            "path",
+            "root"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.indexer._resolve_import_targets",
+          "name": "_resolve_import_targets",
+          "line": 52,
+          "end_line": 100,
+          "args": [
+            "imp",
+            "root",
+            "module_parts",
+            "is_package"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": "Best-effort resolution of an import statement to project-local file(s).\n\n`is_package` distinguishes a package's __init__.py (whose module_name\nalready *is* the package - level=1 means \"this same package\") from a\nregular module file (whose module_name includes the file itself, so\nlevel=1 means \"the package containing this file\", i.e. one level up)."
+        },
+        {
+          "qualified_name": "flowtrace.indexer._resolve_import_targets.try_path",
+          "name": "try_path",
+          "line": 70,
+          "end_line": 80,
+          "args": [
+            "parts"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": true,
+          "class_qualified_name": null,
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.indexer._FileVisitor.__init__",
+          "name": "__init__",
+          "line": 108,
+          "end_line": 113,
+          "args": [
+            "self",
+            "module_name"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.indexer._FileVisitor",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.indexer._FileVisitor._qualify",
+          "name": "_qualify",
+          "line": 115,
+          "end_line": 117,
+          "args": [
+            "self",
+            "name"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.indexer._FileVisitor",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.indexer._FileVisitor._unparse",
+          "name": "_unparse",
+          "line": 120,
+          "end_line": 124,
+          "args": [
+            "node"
+          ],
+          "decorators": [
+            "staticmethod"
+          ],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.indexer._FileVisitor",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.indexer._FileVisitor.visit_Import",
+          "name": "visit_Import",
+          "line": 126,
+          "end_line": 132,
+          "args": [
+            "self",
+            "node"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.indexer._FileVisitor",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.indexer._FileVisitor.visit_ImportFrom",
+          "name": "visit_ImportFrom",
+          "line": 134,
+          "end_line": 139,
+          "args": [
+            "self",
+            "node"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.indexer._FileVisitor",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.indexer._FileVisitor.visit_ClassDef",
+          "name": "visit_ClassDef",
+          "line": 141,
+          "end_line": 155,
+          "args": [
+            "self",
+            "node"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.indexer._FileVisitor",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.indexer._FileVisitor.visit_FunctionDef",
+          "name": "visit_FunctionDef",
+          "line": 157,
+          "end_line": 158,
+          "args": [
+            "self",
+            "node"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.indexer._FileVisitor",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.indexer._FileVisitor.visit_AsyncFunctionDef",
+          "name": "visit_AsyncFunctionDef",
+          "line": 160,
+          "end_line": 161,
+          "args": [
+            "self",
+            "node"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.indexer._FileVisitor",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.indexer._FileVisitor._visit_function",
+          "name": "_visit_function",
+          "line": 163,
+          "end_line": 177,
+          "args": [
+            "self",
+            "node"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.indexer._FileVisitor",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.indexer.index_file",
+          "name": "index_file",
+          "line": 180,
+          "end_line": 208,
+          "args": [
+            "path",
+            "root"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.indexer.build_folder_tree",
+          "name": "build_folder_tree",
+          "line": 211,
+          "end_line": 231,
+          "args": [
+            "rel_paths"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": "rel_paths: relative path strings (POSIX-ish). Returns a nested tree:\n{\"type\": \"dir\"|\"file\", \"name\": ..., \"children\": [...] (dirs only)}."
+        },
+        {
+          "qualified_name": "flowtrace.indexer.build_folder_tree.finalize",
+          "name": "finalize",
+          "line": 226,
+          "end_line": 229,
+          "args": [
+            "n"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": true,
+          "class_qualified_name": null,
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.indexer.build_index",
+          "name": "build_index",
+          "line": 234,
+          "end_line": 273,
+          "args": [
+            "root_dir",
+            "extra_ignore"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "flowtrace/serializer.py",
+      "module_name": "flowtrace.serializer",
+      "line_count": 120,
+      "docstring": "Object serialization and payload state-diffing.\n\nConverts arbitrary Python objects captured at trace time into JSON-safe\nstructures (bounding size/depth so tracing stays low-overhead), and computes\nstructural diffs between two serialized snapshots of the same object -\nused to show \"added / modified / removed\" attributes for mutable arguments\nand return values.",
+      "imports": [
+        {
+          "module": "dataclasses",
+          "names": [
+            "is_dataclass",
+            "asdict"
+          ],
+          "kind": "from",
+          "alias": null,
+          "line": 10,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Logic"
+        }
+      ],
+      "classes": [],
+      "functions": [
+        {
+          "qualified_name": "flowtrace.serializer.safe_serialize",
+          "name": "safe_serialize",
+          "line": 17,
+          "end_line": 80,
+          "args": [
+            "obj",
+            "_seen",
+            "depth",
+            "max_depth"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": "Recursively convert obj into a JSON-safe structure.\n\nGuards against: unbounded size (strings/collections truncated),\nunbounded depth, circular references, and non-serializable types\n(falls back to repr())."
+        },
+        {
+          "qualified_name": "flowtrace.serializer._safe_repr",
+          "name": "_safe_repr",
+          "line": 83,
+          "end_line": 88,
+          "args": [
+            "obj"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.serializer.diff_states",
+          "name": "diff_states",
+          "line": 91,
+          "end_line": 120,
+          "args": [
+            "before",
+            "after"
+          ],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": "Compute a structural diff between two already-serialized values.\n\nReturns None if there is no meaningful difference, otherwise a dict\ndescribing what changed: {\"type\": \"dict_diff\"|\"list_diff\"|\"changed\", ...}"
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "flowtrace/tracer.py",
+      "module_name": "flowtrace.tracer",
+      "line_count": 196,
+      "docstring": "Tracer Core (Language Agent) - Python implementation.\n\nHooks into runtime execution via sys.settrace() to capture function\nentrance/exit events, positional/keyword arguments, return values, and\ncall-stack depth, with minimal overhead achieved by:\n  - only registering a per-frame local trace function for frames we\n    actually want to record (namespace/depth filtered at 'call' time)\n  - never subscribing to 'line' events\n  - bounding serialized payload size/depth (see serializer.py)",
+      "imports": [
+        {
+          "module": "inspect",
+          "names": [],
+          "kind": "import",
+          "alias": null,
+          "line": 12,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Logic"
+        },
+        {
+          "module": "itertools",
+          "names": [],
+          "kind": "import",
+          "alias": null,
+          "line": 13,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Stdlib"
+        },
+        {
+          "module": "os",
+          "names": [],
+          "kind": "import",
+          "alias": null,
+          "line": 14,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Stdlib"
+        },
+        {
+          "module": "sys",
+          "names": [],
+          "kind": "import",
+          "alias": null,
+          "line": 15,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Stdlib"
+        },
+        {
+          "module": "threading",
+          "names": [],
+          "kind": "import",
+          "alias": null,
+          "line": 16,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Logic"
+        },
+        {
+          "module": "time",
+          "names": [],
+          "kind": "import",
+          "alias": null,
+          "line": 17,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Stdlib"
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "kind": "from",
+          "alias": null,
+          "line": 18,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Stdlib"
+        },
+        {
+          "module": "classifier",
+          "names": [
+            "classify_module"
+          ],
+          "kind": "from",
+          "alias": null,
+          "line": 20,
+          "level": 1,
+          "resolved_paths": [
+            "flowtrace/classifier.py"
+          ],
+          "category": null
+        },
+        {
+          "module": "serializer",
+          "names": [
+            "diff_states",
+            "safe_serialize"
+          ],
+          "kind": "from",
+          "alias": null,
+          "line": 21,
+          "level": 1,
+          "resolved_paths": [
+            "flowtrace/serializer.py"
+          ],
+          "category": null
+        }
+      ],
+      "classes": [
+        {
+          "qualified_name": "flowtrace.tracer.Tracer",
+          "name": "Tracer",
+          "line": 28,
+          "end_line": 196,
+          "bases": [],
+          "decorators": [],
+          "docstring": null,
+          "methods": [
+            "__init__",
+            "_is_stdlib_or_vendor",
+            "_should_trace",
+            "_global_trace",
+            "_local_trace",
+            "_capture_args",
+            "_on_call",
+            "_on_return",
+            "_on_exception",
+            "start",
+            "stop",
+            "to_trace_doc"
+          ]
+        }
+      ],
+      "functions": [
+        {
+          "qualified_name": "flowtrace.tracer.Tracer.__init__",
+          "name": "__init__",
+          "line": 29,
+          "end_line": 38,
+          "args": [
+            "self",
+            "include_stdlib",
+            "max_depth",
+            "target_dir",
+            "exclude_prefixes"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.tracer.Tracer",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.tracer.Tracer._is_stdlib_or_vendor",
+          "name": "_is_stdlib_or_vendor",
+          "line": 42,
+          "end_line": 51,
+          "args": [
+            "self",
+            "filename"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.tracer.Tracer",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.tracer.Tracer._should_trace",
+          "name": "_should_trace",
+          "line": 53,
+          "end_line": 83,
+          "args": [
+            "self",
+            "frame"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.tracer.Tracer",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.tracer.Tracer._global_trace",
+          "name": "_global_trace",
+          "line": 87,
+          "end_line": 96,
+          "args": [
+            "self",
+            "frame",
+            "event",
+            "arg"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.tracer.Tracer",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.tracer.Tracer._local_trace",
+          "name": "_local_trace",
+          "line": 98,
+          "end_line": 103,
+          "args": [
+            "self",
+            "frame",
+            "event",
+            "arg"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.tracer.Tracer",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.tracer.Tracer._capture_args",
+          "name": "_capture_args",
+          "line": 105,
+          "end_line": 114,
+          "args": [
+            "self",
+            "frame"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.tracer.Tracer",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.tracer.Tracer._on_call",
+          "name": "_on_call",
+          "line": 116,
+          "end_line": 138,
+          "args": [
+            "self",
+            "frame"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.tracer.Tracer",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.tracer.Tracer._on_return",
+          "name": "_on_return",
+          "line": 140,
+          "end_line": 163,
+          "args": [
+            "self",
+            "frame",
+            "retval"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.tracer.Tracer",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.tracer.Tracer._on_exception",
+          "name": "_on_exception",
+          "line": 165,
+          "end_line": 176,
+          "args": [
+            "self",
+            "frame",
+            "exc_info"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.tracer.Tracer",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.tracer.Tracer.start",
+          "name": "start",
+          "line": 180,
+          "end_line": 183,
+          "args": [
+            "self"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.tracer.Tracer",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.tracer.Tracer.stop",
+          "name": "stop",
+          "line": 185,
+          "end_line": 187,
+          "args": [
+            "self"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.tracer.Tracer",
+          "docstring": null
+        },
+        {
+          "qualified_name": "flowtrace.tracer.Tracer.to_trace_doc",
+          "name": "to_trace_doc",
+          "line": 189,
+          "end_line": 196,
+          "args": [
+            "self"
+          ],
+          "decorators": [],
+          "is_method": true,
+          "is_nested": false,
+          "class_qualified_name": "flowtrace.tracer.Tracer",
+          "docstring": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "schema/validate.py",
+      "module_name": "schema.validate",
+      "line_count": 45,
+      "docstring": "Validate a flowtrace trace JSON file against flowtrace-trace.schema.json.\n\nUsage:\n    python validate.py path/to/trace.json",
+      "imports": [
+        {
+          "module": "json",
+          "names": [],
+          "kind": "import",
+          "alias": null,
+          "line": 7,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Stdlib"
+        },
+        {
+          "module": "sys",
+          "names": [],
+          "kind": "import",
+          "alias": null,
+          "line": 8,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Stdlib"
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "kind": "from",
+          "alias": null,
+          "line": 9,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Stdlib"
+        },
+        {
+          "module": "jsonschema",
+          "names": [],
+          "kind": "import",
+          "alias": null,
+          "line": 12,
+          "level": 0,
+          "resolved_paths": [],
+          "category": "Logic"
+        }
+      ],
+      "classes": [],
+      "functions": [
+        {
+          "qualified_name": "schema.validate.main",
+          "name": "main",
+          "line": 18,
+          "end_line": 41,
+          "args": [],
+          "decorators": [],
+          "is_method": false,
+          "is_nested": false,
+          "class_qualified_name": null,
+          "docstring": null
+        }
+      ],
+      "error": null
+    }
+  ],
+  "classes": [
+    {
+      "qualified_name": "flowtrace.indexer._FileVisitor",
+      "name": "_FileVisitor",
+      "line": 103,
+      "end_line": 177,
+      "bases": [
+        "ast.NodeVisitor"
+      ],
+      "decorators": [],
+      "docstring": "Single-module AST walk. Tracks a scope stack so nested functions/\nclasses get correctly qualified names, and methods are distinguished\nfrom free functions.",
+      "methods": [
+        "__init__",
+        "_qualify",
+        "_unparse",
+        "visit_Import",
+        "visit_ImportFrom",
+        "visit_ClassDef",
+        "visit_FunctionDef",
+        "visit_AsyncFunctionDef",
+        "_visit_function"
+      ],
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.tracer.Tracer",
+      "name": "Tracer",
+      "line": 28,
+      "end_line": 196,
+      "bases": [],
+      "decorators": [],
+      "docstring": null,
+      "methods": [
+        "__init__",
+        "_is_stdlib_or_vendor",
+        "_should_trace",
+        "_global_trace",
+        "_local_trace",
+        "_capture_args",
+        "_on_call",
+        "_on_return",
+        "_on_exception",
+        "start",
+        "stop",
+        "to_trace_doc"
+      ],
+      "file": "flowtrace/tracer.py"
+    }
+  ],
+  "functions": [
+    {
+      "qualified_name": "examples.demo.fetch_user",
+      "name": "fetch_user",
+      "line": 6,
+      "end_line": 8,
+      "args": [
+        "user_id"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": null,
+      "file": "examples/demo.py"
+    },
+    {
+      "qualified_name": "examples.demo.enrich_user",
+      "name": "enrich_user",
+      "line": 11,
+      "end_line": 15,
+      "args": [
+        "user"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": null,
+      "file": "examples/demo.py"
+    },
+    {
+      "qualified_name": "examples.demo.save_user",
+      "name": "save_user",
+      "line": 18,
+      "end_line": 20,
+      "args": [
+        "user"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": null,
+      "file": "examples/demo.py"
+    },
+    {
+      "qualified_name": "examples.demo.process_signup",
+      "name": "process_signup",
+      "line": 23,
+      "end_line": 27,
+      "args": [
+        "user_id"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": null,
+      "file": "examples/demo.py"
+    },
+    {
+      "qualified_name": "examples.demo.risky_divide",
+      "name": "risky_divide",
+      "line": 30,
+      "end_line": 34,
+      "args": [
+        "a",
+        "b"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": null,
+      "file": "examples/demo.py"
+    },
+    {
+      "qualified_name": "examples.demo.main",
+      "name": "main",
+      "line": 37,
+      "end_line": 42,
+      "args": [],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": null,
+      "file": "examples/demo.py"
+    },
+    {
+      "qualified_name": "flowtrace.classifier.classify_module",
+      "name": "classify_module",
+      "line": 31,
+      "end_line": 43,
+      "args": [
+        "module_name"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": "Return an architectural category string for a given module name.",
+      "file": "flowtrace/classifier.py"
+    },
+    {
+      "qualified_name": "flowtrace.cli.build_parser",
+      "name": "build_parser",
+      "line": 13,
+      "end_line": 34,
+      "args": [],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": null,
+      "file": "flowtrace/cli.py"
+    },
+    {
+      "qualified_name": "flowtrace.cli.main",
+      "name": "main",
+      "line": 37,
+      "end_line": 90,
+      "args": [
+        "argv"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": null,
+      "file": "flowtrace/cli.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer._should_ignore_dir",
+      "name": "_should_ignore_dir",
+      "line": 26,
+      "end_line": 27,
+      "args": [
+        "name"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": null,
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer.discover_python_files",
+      "name": "discover_python_files",
+      "line": 30,
+      "end_line": 40,
+      "args": [
+        "root_dir",
+        "extra_ignore"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": "Walk root_dir, skipping venvs/vendor/VCS dirs, returning sorted .py paths.",
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer._module_name_for",
+      "name": "_module_name_for",
+      "line": 43,
+      "end_line": 49,
+      "args": [
+        "path",
+        "root"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": null,
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer._resolve_import_targets",
+      "name": "_resolve_import_targets",
+      "line": 52,
+      "end_line": 100,
+      "args": [
+        "imp",
+        "root",
+        "module_parts",
+        "is_package"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": "Best-effort resolution of an import statement to project-local file(s).\n\n`is_package` distinguishes a package's __init__.py (whose module_name\nalready *is* the package - level=1 means \"this same package\") from a\nregular module file (whose module_name includes the file itself, so\nlevel=1 means \"the package containing this file\", i.e. one level up).",
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer._resolve_import_targets.try_path",
+      "name": "try_path",
+      "line": 70,
+      "end_line": 80,
+      "args": [
+        "parts"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": true,
+      "class_qualified_name": null,
+      "docstring": null,
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer._FileVisitor.__init__",
+      "name": "__init__",
+      "line": 108,
+      "end_line": 113,
+      "args": [
+        "self",
+        "module_name"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.indexer._FileVisitor",
+      "docstring": null,
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer._FileVisitor._qualify",
+      "name": "_qualify",
+      "line": 115,
+      "end_line": 117,
+      "args": [
+        "self",
+        "name"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.indexer._FileVisitor",
+      "docstring": null,
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer._FileVisitor._unparse",
+      "name": "_unparse",
+      "line": 120,
+      "end_line": 124,
+      "args": [
+        "node"
+      ],
+      "decorators": [
+        "staticmethod"
+      ],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.indexer._FileVisitor",
+      "docstring": null,
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer._FileVisitor.visit_Import",
+      "name": "visit_Import",
+      "line": 126,
+      "end_line": 132,
+      "args": [
+        "self",
+        "node"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.indexer._FileVisitor",
+      "docstring": null,
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer._FileVisitor.visit_ImportFrom",
+      "name": "visit_ImportFrom",
+      "line": 134,
+      "end_line": 139,
+      "args": [
+        "self",
+        "node"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.indexer._FileVisitor",
+      "docstring": null,
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer._FileVisitor.visit_ClassDef",
+      "name": "visit_ClassDef",
+      "line": 141,
+      "end_line": 155,
+      "args": [
+        "self",
+        "node"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.indexer._FileVisitor",
+      "docstring": null,
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer._FileVisitor.visit_FunctionDef",
+      "name": "visit_FunctionDef",
+      "line": 157,
+      "end_line": 158,
+      "args": [
+        "self",
+        "node"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.indexer._FileVisitor",
+      "docstring": null,
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer._FileVisitor.visit_AsyncFunctionDef",
+      "name": "visit_AsyncFunctionDef",
+      "line": 160,
+      "end_line": 161,
+      "args": [
+        "self",
+        "node"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.indexer._FileVisitor",
+      "docstring": null,
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer._FileVisitor._visit_function",
+      "name": "_visit_function",
+      "line": 163,
+      "end_line": 177,
+      "args": [
+        "self",
+        "node"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.indexer._FileVisitor",
+      "docstring": null,
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer.index_file",
+      "name": "index_file",
+      "line": 180,
+      "end_line": 208,
+      "args": [
+        "path",
+        "root"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": null,
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer.build_folder_tree",
+      "name": "build_folder_tree",
+      "line": 211,
+      "end_line": 231,
+      "args": [
+        "rel_paths"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": "rel_paths: relative path strings (POSIX-ish). Returns a nested tree:\n{\"type\": \"dir\"|\"file\", \"name\": ..., \"children\": [...] (dirs only)}.",
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer.build_folder_tree.finalize",
+      "name": "finalize",
+      "line": 226,
+      "end_line": 229,
+      "args": [
+        "n"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": true,
+      "class_qualified_name": null,
+      "docstring": null,
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.indexer.build_index",
+      "name": "build_index",
+      "line": 234,
+      "end_line": 273,
+      "args": [
+        "root_dir",
+        "extra_ignore"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": null,
+      "file": "flowtrace/indexer.py"
+    },
+    {
+      "qualified_name": "flowtrace.serializer.safe_serialize",
+      "name": "safe_serialize",
+      "line": 17,
+      "end_line": 80,
+      "args": [
+        "obj",
+        "_seen",
+        "depth",
+        "max_depth"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": "Recursively convert obj into a JSON-safe structure.\n\nGuards against: unbounded size (strings/collections truncated),\nunbounded depth, circular references, and non-serializable types\n(falls back to repr()).",
+      "file": "flowtrace/serializer.py"
+    },
+    {
+      "qualified_name": "flowtrace.serializer._safe_repr",
+      "name": "_safe_repr",
+      "line": 83,
+      "end_line": 88,
+      "args": [
+        "obj"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": null,
+      "file": "flowtrace/serializer.py"
+    },
+    {
+      "qualified_name": "flowtrace.serializer.diff_states",
+      "name": "diff_states",
+      "line": 91,
+      "end_line": 120,
+      "args": [
+        "before",
+        "after"
+      ],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": "Compute a structural diff between two already-serialized values.\n\nReturns None if there is no meaningful difference, otherwise a dict\ndescribing what changed: {\"type\": \"dict_diff\"|\"list_diff\"|\"changed\", ...}",
+      "file": "flowtrace/serializer.py"
+    },
+    {
+      "qualified_name": "flowtrace.tracer.Tracer.__init__",
+      "name": "__init__",
+      "line": 29,
+      "end_line": 38,
+      "args": [
+        "self",
+        "include_stdlib",
+        "max_depth",
+        "target_dir",
+        "exclude_prefixes"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.tracer.Tracer",
+      "docstring": null,
+      "file": "flowtrace/tracer.py"
+    },
+    {
+      "qualified_name": "flowtrace.tracer.Tracer._is_stdlib_or_vendor",
+      "name": "_is_stdlib_or_vendor",
+      "line": 42,
+      "end_line": 51,
+      "args": [
+        "self",
+        "filename"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.tracer.Tracer",
+      "docstring": null,
+      "file": "flowtrace/tracer.py"
+    },
+    {
+      "qualified_name": "flowtrace.tracer.Tracer._should_trace",
+      "name": "_should_trace",
+      "line": 53,
+      "end_line": 83,
+      "args": [
+        "self",
+        "frame"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.tracer.Tracer",
+      "docstring": null,
+      "file": "flowtrace/tracer.py"
+    },
+    {
+      "qualified_name": "flowtrace.tracer.Tracer._global_trace",
+      "name": "_global_trace",
+      "line": 87,
+      "end_line": 96,
+      "args": [
+        "self",
+        "frame",
+        "event",
+        "arg"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.tracer.Tracer",
+      "docstring": null,
+      "file": "flowtrace/tracer.py"
+    },
+    {
+      "qualified_name": "flowtrace.tracer.Tracer._local_trace",
+      "name": "_local_trace",
+      "line": 98,
+      "end_line": 103,
+      "args": [
+        "self",
+        "frame",
+        "event",
+        "arg"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.tracer.Tracer",
+      "docstring": null,
+      "file": "flowtrace/tracer.py"
+    },
+    {
+      "qualified_name": "flowtrace.tracer.Tracer._capture_args",
+      "name": "_capture_args",
+      "line": 105,
+      "end_line": 114,
+      "args": [
+        "self",
+        "frame"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.tracer.Tracer",
+      "docstring": null,
+      "file": "flowtrace/tracer.py"
+    },
+    {
+      "qualified_name": "flowtrace.tracer.Tracer._on_call",
+      "name": "_on_call",
+      "line": 116,
+      "end_line": 138,
+      "args": [
+        "self",
+        "frame"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.tracer.Tracer",
+      "docstring": null,
+      "file": "flowtrace/tracer.py"
+    },
+    {
+      "qualified_name": "flowtrace.tracer.Tracer._on_return",
+      "name": "_on_return",
+      "line": 140,
+      "end_line": 163,
+      "args": [
+        "self",
+        "frame",
+        "retval"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.tracer.Tracer",
+      "docstring": null,
+      "file": "flowtrace/tracer.py"
+    },
+    {
+      "qualified_name": "flowtrace.tracer.Tracer._on_exception",
+      "name": "_on_exception",
+      "line": 165,
+      "end_line": 176,
+      "args": [
+        "self",
+        "frame",
+        "exc_info"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.tracer.Tracer",
+      "docstring": null,
+      "file": "flowtrace/tracer.py"
+    },
+    {
+      "qualified_name": "flowtrace.tracer.Tracer.start",
+      "name": "start",
+      "line": 180,
+      "end_line": 183,
+      "args": [
+        "self"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.tracer.Tracer",
+      "docstring": null,
+      "file": "flowtrace/tracer.py"
+    },
+    {
+      "qualified_name": "flowtrace.tracer.Tracer.stop",
+      "name": "stop",
+      "line": 185,
+      "end_line": 187,
+      "args": [
+        "self"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.tracer.Tracer",
+      "docstring": null,
+      "file": "flowtrace/tracer.py"
+    },
+    {
+      "qualified_name": "flowtrace.tracer.Tracer.to_trace_doc",
+      "name": "to_trace_doc",
+      "line": 189,
+      "end_line": 196,
+      "args": [
+        "self"
+      ],
+      "decorators": [],
+      "is_method": true,
+      "is_nested": false,
+      "class_qualified_name": "flowtrace.tracer.Tracer",
+      "docstring": null,
+      "file": "flowtrace/tracer.py"
+    },
+    {
+      "qualified_name": "schema.validate.main",
+      "name": "main",
+      "line": 18,
+      "end_line": 41,
+      "args": [],
+      "decorators": [],
+      "is_method": false,
+      "is_nested": false,
+      "class_qualified_name": null,
+      "docstring": null,
+      "file": "schema/validate.py"
+    }
+  ],
+  "import_graph": [
+    {
+      "from": "flowtrace/__init__.py",
+      "to": "flowtrace/tracer.py",
+      "via_module": "tracer"
+    },
+    {
+      "from": "flowtrace/__init__.py",
+      "to": "flowtrace/classifier.py",
+      "via_module": "classifier"
+    },
+    {
+      "from": "flowtrace/__init__.py",
+      "to": "flowtrace/serializer.py",
+      "via_module": "serializer"
+    },
+    {
+      "from": "flowtrace/cli.py",
+      "to": "flowtrace/tracer.py",
+      "via_module": "tracer"
+    },
+    {
+      "from": "flowtrace/cli.py",
+      "to": "flowtrace/indexer.py",
+      "via_module": "indexer"
+    },
+    {
+      "from": "flowtrace/indexer.py",
+      "to": "flowtrace/classifier.py",
+      "via_module": "classifier"
+    },
+    {
+      "from": "flowtrace/tracer.py",
+      "to": "flowtrace/classifier.py",
+      "via_module": "classifier"
+    },
+    {
+      "from": "flowtrace/tracer.py",
+      "to": "flowtrace/serializer.py",
+      "via_module": "serializer"
+    }
+  ],
+  "external_dependencies_by_category": {
+    "Logic": 7,
+    "Stdlib": 14
+  },
+  "unresolved_imports": [
+    {
+      "file": "flowtrace/cli.py",
+      "module": "argparse",
+      "category": "Logic"
+    },
+    {
+      "file": "flowtrace/cli.py",
+      "module": "json",
+      "category": "Stdlib"
+    },
+    {
+      "file": "flowtrace/cli.py",
+      "module": "runpy",
+      "category": "Logic"
+    },
+    {
+      "file": "flowtrace/cli.py",
+      "module": "sys",
+      "category": "Stdlib"
+    },
+    {
+      "file": "flowtrace/cli.py",
+      "module": "pathlib",
+      "category": "Stdlib"
+    },
+    {
+      "file": "flowtrace/indexer.py",
+      "module": "ast",
+      "category": "Logic"
+    },
+    {
+      "file": "flowtrace/indexer.py",
+      "module": "os",
+      "category": "Stdlib"
+    },
+    {
+      "file": "flowtrace/indexer.py",
+      "module": "time",
+      "category": "Stdlib"
+    },
+    {
+      "file": "flowtrace/indexer.py",
+      "module": "pathlib",
+      "category": "Stdlib"
+    },
+    {
+      "file": "flowtrace/serializer.py",
+      "module": "dataclasses",
+      "category": "Logic"
+    },
+    {
+      "file": "flowtrace/tracer.py",
+      "module": "inspect",
+      "category": "Logic"
+    },
+    {
+      "file": "flowtrace/tracer.py",
+      "module": "itertools",
+      "category": "Stdlib"
+    },
+    {
+      "file": "flowtrace/tracer.py",
+      "module": "os",
+      "category": "Stdlib"
+    },
+    {
+      "file": "flowtrace/tracer.py",
+      "module": "sys",
+      "category": "Stdlib"
+    },
+    {
+      "file": "flowtrace/tracer.py",
+      "module": "threading",
+      "category": "Logic"
+    },
+    {
+      "file": "flowtrace/tracer.py",
+      "module": "time",
+      "category": "Stdlib"
+    },
+    {
+      "file": "flowtrace/tracer.py",
+      "module": "pathlib",
+      "category": "Stdlib"
+    },
+    {
+      "file": "schema/validate.py",
+      "module": "json",
+      "category": "Stdlib"
+    },
+    {
+      "file": "schema/validate.py",
+      "module": "sys",
+      "category": "Stdlib"
+    },
+    {
+      "file": "schema/validate.py",
+      "module": "pathlib",
+      "category": "Stdlib"
+    },
+    {
+      "file": "schema/validate.py",
+      "module": "jsonschema",
+      "category": "Logic"
+    }
+  ],
+  "folder_tree": {
+    "type": "dir",
+    "name": ".",
+    "children": [
+      {
+        "type": "dir",
+        "name": "examples",
+        "children": [
+          {
+            "type": "file",
+            "name": "demo.py"
+          }
+        ]
+      },
+      {
+        "type": "dir",
+        "name": "flowtrace",
+        "children": [
+          {
+            "type": "file",
+            "name": "__init__.py"
+          },
+          {
+            "type": "file",
+            "name": "classifier.py"
+          },
+          {
+            "type": "file",
+            "name": "cli.py"
+          },
+          {
+            "type": "file",
+            "name": "indexer.py"
+          },
+          {
+            "type": "file",
+            "name": "serializer.py"
+          },
+          {
+            "type": "file",
+            "name": "tracer.py"
+          }
+        ]
+      },
+      {
+        "type": "dir",
+        "name": "schema",
+        "children": [
+          {
+            "type": "file",
+            "name": "validate.py"
+          }
+        ]
+      }
+    ]
+  }
+}

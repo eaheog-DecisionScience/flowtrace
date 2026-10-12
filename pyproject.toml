@@ -1,0 +1,62 @@
+[project]
+name = "flowtrace"
+version = "0.2.0"
+description = "Deterministic runtime tracing, static call-graph indexing, and local MCP server for Python & AI pair programmers."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+    { name = "Deepak Pandey", email = "support@eaheog.com" }
+]
+keywords = [
+    "mcp",
+    "debugging",
+    "profiling",
+    "tracing",
+    "call-graph",
+    "cursor",
+    "claude",
+    "fastmcp",
+    "pytest",
+    "dataflow",
+    "ast",
+    "performance"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Debuggers",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+dependencies = [
+    "mcp>=2.0.0",
+    "pytest>=7.0.0",
+]
+
+[project.scripts]
+flowtrace = "flowtrace.cli:main"
+flowtrace-mcp = "flowtrace.mcp_server:main"
+
+[project.urls]
+Homepage = "https://github.com/eaheog-DecisionScience/flowtrace"
+Website = "https://www.eaheog.com"
+Documentation = "https://github.com/eaheog-DecisionScience/flowtrace#readme"
+Repository = "https://github.com/eaheog-DecisionScience/flowtrace.git"
+Issues = "https://github.com/eaheog-DecisionScience/flowtrace/issues"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["flowtrace"]

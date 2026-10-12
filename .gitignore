@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Testing & Caching
+.pytest_cache/
+.coverage
+htmlcov/
+.flowtrace/
+
+# Trace logs & test runs (Sensitive & Local)
+*.log
+redaction_audit.log
+trace*.json
+example-trace.json
+flowtrace-index.json
+flowtrace-graph.json
+test_generated_mock.py
+test_auto_generated.py
+
+# Container & Mount artifacts
+mnt/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
